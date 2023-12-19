@@ -1,10 +1,10 @@
 
-let title = "JS GLO_Lessons";
-let screens = "Простые, Сложные, Интерактивные";
-let screenPrice = 47;
-let rollback = 75;
-let fullPrice = 40000;
-let adaptive = true;
+const title = "JS GLO_Lessons";
+const screens = "Простые, Сложные, Интерактивные";
+const screenPrice = 47;
+const rollback = 75;
+const fullPrice = 40000;
+const adaptive = true;
 
 
 
