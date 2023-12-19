@@ -1,16 +1,28 @@
-const numers = 266219;
-
-const numArray = numers.toString().split("").map(Number);
-
-let numArraySumm = 1;
-
-for (let i = 0; i < numArray.length; i++) {
-	numArraySumm *= numArray[i];
+"use strict";
+let lang = confirm("Язык сайта русский?");
+if (lang === true) {
+	console.log("понедельник, вторник , среда , черверг , пятница , суббота , воскресенье");
+} else {
+	console.log("Monday, Tuesday, Wednesday, Thursday, Friday, Saturday , Sunday");
 }
-console.log(numArraySumm);
 
-const result = numArraySumm ** 3;
-console.log(result);
+switch (lang) {
+	case true:
+		console.log("понедельник, вторник , среда , черверг , пятница , суббота , воскресенье");
+		break;
+	case false:
+		console.log("Monday, Tuesday, Wednesday, Thursday, Friday, Saturday , Sunday");
+		break;
+}
 
-console.log(String(result).slice(0, 2));
+const daysOfWeek = [
+	["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"],
+	["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+];
 
+console.log(daysOfWeek[lang ? 0 : 1]);
+
+const namePerson = prompt("Как ваше имя?" , "");
+let role = namePerson === "Артем" ? "директор" : namePerson === "Александр" ? "преподаватель" : "студент";
+
+console.log(role);
