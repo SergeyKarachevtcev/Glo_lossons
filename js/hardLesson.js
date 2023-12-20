@@ -2,7 +2,7 @@
 let lang = prompt("Какой язык у сайта ?", "пример: ru или en");
 const ruLang = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"];
 const enLang = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-const wrongLang = "что то пошло не так";
+const wrongAnswer = "что то пошло не так";
 
 if (lang === "ru") {
 	console.log(ruLang);
@@ -10,7 +10,7 @@ if (lang === "ru") {
 if (lang === "en") {
 	console.log(enLang);
 } else {
-	console.log(wrongLang);
+	console.log(wrongAnswer);
 }
 
 switch (lang) {
@@ -21,15 +21,18 @@ switch (lang) {
 		console.log(enLang);
 		break;
 	default:
-		console.log(wrongLang);
+		console.log(wrongAnswer);
 }
 
 let langIndex = lang === "ru" ? 0 : lang === "en" ? 1 : -1;
-let daysOfWeek = langIndex === 0 ? ruLang : langIndex === 1 ? enLang : wrongLang;
+let daysOfWeek = langIndex === 0 ? ruLang : langIndex === 1 ? enLang : wrongAnswer;
 
 console.log(daysOfWeek);
 
 const namePerson = prompt("Как ваше имя?", "");
-let role = namePerson === "Артем" ? "директор" : namePerson === "Александр" ? "преподаватель" : "студент";
+const director = "директор";
+const ticher = "преподаватель";
+
+let role = namePerson === "Артем" ? director : namePerson === ticher ? "преподаватель" : wrongAnswer;
 
 console.log(role);
