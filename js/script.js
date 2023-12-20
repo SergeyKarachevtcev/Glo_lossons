@@ -18,17 +18,20 @@ console.log(typeof title);
 console.log(typeof fullPrice);
 console.log(typeof adaptive);
 console.log(screens.length);
-console.log("Стоимость верстки экранов " + screenPrice + " рублей / долларов / гривен / юани." + " Стоимость разработки сайта " + fullPrice + " рублей/ долларов/ гривен/ юани.");
+console.log("Стоимость верстки экранов " + screenPrice + " рублей." + " Стоимость разработки сайта " + fullPrice + " рублей.");
 
 console.log(screens.toLowerCase().split(", "));
 
 console.log(fullPrice * (rollback / 100));
 
-if (fullPrice > 0 && fullPrice <15000) {
+if ((fullPrice) => 0 && fullPrice <= 15000) {
 	console.log("Скидка не предусмотрена");
-} else if (fullPrice > 15000 && fullPrice < 30000) {
-    console.log("Даем скидку в 5%");
-}else{
-    console.log("Даем скидку в 10%");
 }
-
+if (fullPrice > 15000 && fullPrice <= 30000) {
+	console.log("Даем скидку в 5%");
+}
+if (fullPrice < 0) {
+	console.log("Что то пошло не так");
+} else {
+	console.log("Даем скидку в 10%");
+}
