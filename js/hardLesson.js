@@ -1,26 +1,32 @@
 "use strict";
-let lang = confirm("Язык сайта русский?");
-if (lang === true) {
-	console.log("понедельник, вторник , среда , черверг , пятница , суббота , воскресенье");
-} else {
-	console.log("Monday, Tuesday, Wednesday, Thursday, Friday, Saturday , Sunday");
+let lang = prompt("Какой язык у сайта ?", "пример: ru или en");
+const ruLang = [понедельник, вторник, среда, черверг, пятница, суббота, воскресенье];
+const enLang = [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday];
+const wrongLang = "что то пошло не так";
+
+if (lang === "ru") {
+	console.log(ruLang);
+} if (lang === "en") {
+	console.log(enLang);
+}else{
+	console.log(wrongLang);
 }
 
 switch (lang) {
-	case true:
-		console.log("понедельник, вторник , среда , черверг , пятница , суббота , воскресенье");
+	case "ru":
+		console.log(ruLang);
 		break;
-	case false:
-		console.log("Monday, Tuesday, Wednesday, Thursday, Friday, Saturday , Sunday");
+	case "en":
+		console.log(enLang);
 		break;
+	default :
+	console.log(wrongLang);
 }
 
-const daysOfWeek = [
-	["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"],
-	["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-];
+let langIndex = lang === "ru" ? 0 : lang === "en" ? 1 : -1;
+let daysOfWeek = langIndex === 0 ? ruLang : langIndex === 1 ? enLang : wrongLang;
 
-console.log(daysOfWeek[lang ? 0 : 1]);
+console.log(daysOfWeek);
 
 const namePerson = prompt("Как ваше имя?" , "");
 let role = namePerson === "Артем" ? "директор" : namePerson === "Александр" ? "преподаватель" : "студент";
