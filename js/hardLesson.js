@@ -36,7 +36,6 @@ const ticher = "преподаватель";
 let role = namePerson === "Артем" ? director : namePerson === ticher ? "преподаватель" : wrongAnswer;
 console.log(role);
 
-
 const weekDays = {
 	lang1: ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"],
 	lang2: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
@@ -46,6 +45,3 @@ let weekLang = prompt("Какой язык у сайта ?", "пример: ru �
 let selectedLang = weekLang === "ru" ? weekDays.lang1 : weekLang === "en" ? weekDays.lang2 : wrongAnswer;
 
 console.log(selectedLang);
-
-
-
