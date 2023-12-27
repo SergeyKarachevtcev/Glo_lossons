@@ -9,36 +9,43 @@ const additionalServices = prompt("Какой дополнительный ти�
 const additionalServicesPrice = +prompt("Сколько это будет стоить?", "пример: 12000");
 const additionalServices02 = prompt("Какой дополнительный тип услуги нужен?");
 const additionalServicesPrice02 = +prompt("Сколько это будет стоить?", "пример: 12000");
-
-let fullPrice = screenPrice + additionalServicesPrice + additionalServicesPrice02;
-
-let servicePercentPrice = Math.ceil(fullPrice - rollback);
-
+let projectTitle;
+let fullPrice;
+let servicePercentPrice;
 let allServicePrices;
 
+/* функции */
+
+/* общая цена  доп услуги */
 const getAllServicePrices = function () {
 	allServicePrices = additionalServicesPrice + additionalServicesPrice02;
 	return allServicePrices;
 };
-getAllServicePrices();
 
+/* общий тотал (цена работы + доп услуги)  */
 function getFullPrice() {
-	return screenPrice + allServicePrices;
+	fullPrice = screenPrice + allServicePrices;
+	return fullPrice;
 }
-fullPrice = getFullPrice();
 
+/* формат заголовка */
 const getTitle = function () {
 	const trimmedTitle = title.trim();
 	const formattedTitle = trimmedTitle.charAt(0).toUpperCase() + trimmedTitle.slice(1).toLowerCase();
 	return formattedTitle;
 };
-const projectTitle = getTitle();
 
+/* итоговую стоимость за вычетом процента отката */
 const getServicePercentPrices = function () {
-	return fullPrice - rollback;
+	servicePercentPrice = Math.ceil(fullPrice - rollback);
+	return servicePercentPrice;
 };
-servicePercentPrice = getServicePercentPrices();
 
+const showTypeOf = function (variable) {
+	console.log(variable, typeof variable);
+};
+
+/* размер скидки */
 function getRollbackMessage(price) {
 	if (price >= 0 && price <= 15000) {
 		return "Скидка не предусмотрена";
@@ -47,27 +54,33 @@ function getRollbackMessage(price) {
 		return "Даем скидку в 5%";
 	}
 	if (price < 0) {
-		return "Что-то пошло не так";
+		return "Что то пошло не так";
+	} else {
+		return "Даем скидку в 10%";
 	}
-	return "Даем скидку в 10%";
 }
-getRollbackMessage();
 
-// Вызовы функции showTypeOf
-showTypeOf(title);
+/* вызов функций */
+
+allServicePrices = getAllServicePrices(); /* вызов функции (сложение доп услуг ) */
+fullPrice = getFullPrice(); /* цена за работу + доп услуги */
+projectTitle = getTitle(); /* форматирование названия проекта */
+servicePercentPrice = getServicePercentPrices(); /* фулл прайс - откат */
+
+showTypeOf(title); /* вызов функции проверки типа данных */
 showTypeOf(fullPrice);
 showTypeOf(adaptive);
+console.log(screens.length);
+console.log(getRollbackMessage(fullPrice)); /* вывожу сообщение о скидке , вызываю функцию*/
+console.log("Стоимость верстки экранов " + screenPrice + " рублей." + " Стоимость разработки сайта " + fullPrice + " рублей.");
 
-// Вывод строки с типами экранов для разработки screens
-console.log(screens);
+/* console.log(servicePercentPrice);
+console.log(typeof title);
+console.log(typeof fullPrice);
+console.log(typeof adaptive);
+console.log(screens.length);
+console.log("Стоимость верстки экранов " + screenPrice + " рублей." + " Стоимость разработки сайта " + fullPrice + " рублей.");
 
-// Вывод сообщения о скидке пользователю
-console.log(getRollbackMessage(fullPrice));
+console.log(screens.toLowerCase().split(", "));
 
-// Вывод стоимости за вычетом процента отката посреднику
-console.log(servicePercentPrice);
-
-// Функция для вывода типа переменной
-function showTypeOf(variable) {
-	console.log(typeof variable);
-}
+console.log(fullPrice * (rollback / 100)); */
