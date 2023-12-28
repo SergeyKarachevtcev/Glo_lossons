@@ -1,14 +1,14 @@
 "use strict";
 
-let title = prompt("Как называется ваш проект?", "");
-const screens = prompt("Какие типы экранов нужно разработать?", "Пример : Простые, Сложные, Интерактивные");
-const screenPrice = +prompt("Сколько будет стоить данная работа?", "пример: 12000");
+let title;
+let screens;
+let screenPrice;
 const rollback = 75;
-let adaptive = confirm("Нужен ли адаптив на сайте?");
-const additionalServices = prompt("Какой дополнительный тип услуги нужен?");
-const additionalServicesPrice = +prompt("Сколько это будет стоить?", "пример: 12000");
-const additionalServices02 = prompt("Какой дополнительный тип услуги нужен?");
-const additionalServicesPrice02 = +prompt("Сколько это будет стоить?", "пример: 12000");
+let adaptive;
+let additionalServices;
+let additionalServicesPrice;
+let additionalServices02;
+let additionalServicesPrice02;
 
 let fullPrice;
 let servicePercentPrice;
@@ -16,9 +16,37 @@ let allServicePrices;
 
 /* функции */
 
+/* функция проверки занчения  */
+const isNumber = function (num) {
+	return !isNaN(parseFloat(num)) && isFinite(num);
+};
+
+/* функция со всеми вопросами */
+const asking = function () {
+	title = prompt("Как называется ваш проект?", "");
+	screens = prompt("Какие типы экранов нужно разработать?", "Пример : Простые, Сложные, Интерактивные");
+	do {
+		screenPrice = +prompt("Сколько будет стоить данная работа?", "пример: 12000");
+	} while (!isFinite(screenPrice));
+	adaptive = confirm("Нужен ли адаптив на сайте?");
+};
+
 /* общая цена  доп услуги */
 const getAllServicePrices = function () {
-	return additionalServicesPrice + additionalServicesPrice02;
+	let sum = 0;
+	for (let i = 0; i < 2; i++) {
+		if (i === 0) {
+			additionalServices = prompt("Какой дополнительный тип услуги нужен?");
+		} else if (i === 1) {
+			additionalServices02 = prompt("Какой дополнительный тип услуги нужен?");
+		}
+		let price;
+		while (!isNumber(price)) {
+			price = +prompt("Сколько это будет стоить?", "пример: 12000");
+		}
+		sum += price;
+	}
+	return sum;
 };
 
 /* общий тотал (цена работы + доп услуги)  */
@@ -58,7 +86,7 @@ function getRollbackMessage(price) {
 }
 
 /* вызов функций */
-
+asking(); /* вызов функции с вопросами */
 allServicePrices = getAllServicePrices(); /* вызов функции (сложение доп услуг ) */
 fullPrice = getFullPrice(); /* цена за работу + доп услуги */
 title = getTitle(); /* форматирование названия проекта */
