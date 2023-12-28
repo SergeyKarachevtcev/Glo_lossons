@@ -27,7 +27,7 @@ const asking = function () {
 	screens = prompt("Какие типы экранов нужно разработать?", "Пример : Простые, Сложные, Интерактивные");
 	do {
 		screenPrice = +prompt("Сколько будет стоить данная работа?", "пример: 12000");
-	} while (!isFinite(screenPrice));
+	} while (!isNumber(screenPrice));
 	adaptive = confirm("Нужен ли адаптив на сайте?");
 };
 
