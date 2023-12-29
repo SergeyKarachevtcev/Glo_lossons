@@ -1,16 +1,39 @@
 
-/* 5) В файле скрипта создать переменные: */
-let title;
-let screens;
-let screenPrice;
-let rollback;
-let fullPrice;
-let adaptive;
+function gameBot() {
+	const randomNumber = 17;
 
-/* 6) Вывести на экран в модальном окне (alert) сообщение с любым текстом */
-alert("alert сообщение с любым текстом");
+	function guessNumber() {
+		const userNumber = prompt("Угадай число от 1 до 100:" , "");
 
-/* 7) Вывести в консоль сообщение с любым текстом */
-console.log("сообщение с любым текстом");
+		if (userNumber === null) {
+			alert("Игра окончена");
+			return;
+		}
 
-/* done done*/
+		if (!isNumber(userNumber)) {
+			alert("Введи число!");
+			guessNumber();
+			return;
+		}
+
+		const parsedUserNumber = parseInt(userNumber, 10);
+
+		if (parsedUserNumber < randomNumber) {
+			alert("Загаданное число больше");
+			guessNumber();
+		} else if (parsedUserNumber > randomNumber) {
+			alert("Загаданное число меньше");
+			guessNumber();
+		} else {
+			alert("Поздравляю, Вы угадали!!!");
+		}
+	}
+
+	guessNumber();
+}
+
+function isNumber(num) {
+	return !isNaN(parseFloat(num)) && isFinite(num);
+}
+
+gameBot();
