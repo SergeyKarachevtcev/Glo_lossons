@@ -14,11 +14,11 @@ function gameBot() {
 			guessNumber();
 			return;
 		}
-
-		if (userNumber < randomNumber) {
+		let functionNumber = userNumber;
+		if (functionNumber < randomNumber) {
 			alert("Загаданное число больше");
 			guessNumber();
-		} else if (userNumber > randomNumber) {
+		} else if (functionNumber > randomNumber) {
 			alert("Загаданное число меньше");
 			guessNumber();
 		} else {
