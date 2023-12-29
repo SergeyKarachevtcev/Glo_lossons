@@ -40,9 +40,10 @@ const getAllServicePrices = function () {
 		} else if (i === 1) {
 			additionalServices02 = prompt("Какой дополнительный тип услуги нужен?");
 		}
-		while (!isNumber(sum)) {
-			price = +prompt("Сколько это будет стоить?", "пример: 12000");
-		}
+		do {
+			sum = +prompt("Сколько это будет стоить?", "пример: 12000");
+		} while (!isNumber(sum));
+		sum++
 	}
 	return sum;
 };
