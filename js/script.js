@@ -1,9 +1,8 @@
-
 function gameBot() {
 	const randomNumber = 17;
 
 	function guessNumber() {
-		const userNumber = prompt("Угадай число от 1 до 100:" , "");
+		const userNumber = prompt("Угадай число от 1 до 100:", "");
 
 		if (userNumber === null) {
 			alert("Игра окончена");
@@ -16,12 +15,10 @@ function gameBot() {
 			return;
 		}
 
-		const parsedUserNumber = parseInt(userNumber, 10);
-
-		if (parsedUserNumber < randomNumber) {
+		if (userNumber < randomNumber) {
 			alert("Загаданное число больше");
 			guessNumber();
-		} else if (parsedUserNumber > randomNumber) {
+		} else if (userNumber > randomNumber) {
 			alert("Загаданное число меньше");
 			guessNumber();
 		} else {
