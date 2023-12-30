@@ -34,6 +34,7 @@ const asking = function () {
 /* общая цена  доп услуги */
 const getAllServicePrices = function () {
 	let sum = 0;
+	let price = 0;
 	for (let i = 0; i < 2; i++) {
 		if (i === 0) {
 			additionalServices = prompt("Какой дополнительный тип услуги нужен?");
@@ -41,9 +42,9 @@ const getAllServicePrices = function () {
 			additionalServices02 = prompt("Какой дополнительный тип услуги нужен?");
 		}
 		do {
-			sum = +prompt("Сколько это будет стоить?", "пример: 12000");
-		} while (!isNumber(sum));
-		sum++
+			price = +prompt("Сколько это будет стоить?", "пример: 12000");
+		} while (!isNumber(price));
+		sum += price;
 	}
 	return sum;
 };
