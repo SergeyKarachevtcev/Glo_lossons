@@ -83,16 +83,12 @@ const appData = {
 		appData.fullPrice = appData.getFullPrice(); /* цена за работу + доп услуги */
 		appData.title = appData.getTitle(); /* форматирование названия проекта */
 		appData.servicePercentPrice = appData.getServicePercentPrices(); /* фулл прайс - откат */
-		this.loger();
+		appData.logger();
 	},
-	loger: function () {
+	logger: function () {
 		for (let key in appData) {
 			console.log(key + ": " + appData[key]);
 		}
-		/* console.log(appData.getTitle()); */
-		/* console.log("allServicePrices " + appData.allServicePrices); */ /* стоимость доп услуг */
-		/* console.log(appData.getRollbackMessage(appData.fullPrice)); */ /* цена за работу + доп услуги */
-		/* console.log("Стоимость верстки экранов " + appData.screenPrice + " рублей." + " Стоимость разработки сайта " + appData.fullPrice + " рублей."); */
 	},
 };
 
