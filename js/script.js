@@ -43,24 +43,24 @@ const appData = {
 			} while (!appData.isNumber(price));
 			sum += price;
 		}
-		return sum;
+		appData.allServicePrices = sum;
 	},
 
 	/* общий тотал (цена работы + доп услуги)  */
 	getFullPrice: function () {
-		return appData.screenPrice + appData.allServicePrices;
+		appData.fullPrice = appData.screenPrice + appData.allServicePrices;
 	},
 
 	/* формат заголовка */
 	getTitle: function () {
 		const trimmedTitle = appData.title.trim();
-		let formattedTitle = trimmedTitle.charAt(0).toUpperCase() + trimmedTitle.slice(1).toLowerCase();
-		return formattedTitle;
+		appData.title = trimmedTitle.charAt(0).toUpperCase() + trimmedTitle.slice(1).toLowerCase();
+		return;
 	},
 
 	/* итоговую стоимость за вычетом процента отката */
 	getServicePercentPrices: function () {
-		return Math.ceil(appData.fullPrice - appData.rollback);
+		appData.servicePercentPrice = Math.ceil(appData.fullPrice - appData.rollback);
 	},
 
 	/* размер скидки */
@@ -79,20 +79,17 @@ const appData = {
 	},
 	start: function () {
 		appData.asking(); /* вызов метода с вопросами */
-		appData.allServicePrices = appData.getAllServicePrices(); /* вызов метода (сложение доп услуг ) */
-		appData.fullPrice = appData.getFullPrice(); /* цена за работу + доп услуги */
-		appData.title = appData.getTitle(); /* форматирование названия проекта */
-		appData.servicePercentPrice = appData.getServicePercentPrices(); /* фулл прайс - откат */
-		this.loger();
+		appData.getAllServicePrices(); /* вызов метода (сложение доп услуг ) */
+		appData.getFullPrice(); /* цена за работу + доп услуги */
+		appData.getTitle(); /* форматирование названия проекта */
+		appData.getServicePercentPrices(); /* фулл прайс - откат */
+
+		appData.logger();
 	},
-	loger: function () {
+	logger: function () {
 		for (let key in appData) {
 			console.log(key + ": " + appData[key]);
 		}
-		/* console.log(appData.getTitle()); */
-		/* console.log("allServicePrices " + appData.allServicePrices); */ /* стоимость доп услуг */
-		/* console.log(appData.getRollbackMessage(appData.fullPrice)); */ /* цена за работу + доп услуги */
-		/* console.log("Стоимость верстки экранов " + appData.screenPrice + " рублей." + " Стоимость разработки сайта " + appData.fullPrice + " рублей."); */
 	},
 };
 
