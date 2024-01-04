@@ -4,12 +4,11 @@
 
 const appData = {
 	title: "",
-	screens: "",
+	screens: [],
 	screenPrice: 0,
 	rollback: 75,
 	adaptive: true,
-	additionalServices: "",
-	additionalServices02: "true",
+	additionalServices: {},
 	fullPrice: 0,
 	servicePercentPrice: 0,
 	allServicePrices: 0,
@@ -20,30 +19,55 @@ const appData = {
 	},
 	/* метод со всеми вопросами */
 	asking: function () {
-		appData.title = prompt("Как называется ваш проект?", "");
-		appData.screens = prompt("Какие типы экранов нужно разработать?", "Пример : Простые, Сложные, Интерактивные");
+		/* проверка на строку */
+		let projectName = "";
 		do {
-			appData.screenPrice = +prompt("Сколько будет стоить данная работа?", "пример: 12000");
-		} while (!appData.isNumber(appData.screenPrice));
+			projectName = prompt("Как называется ваш проект?", "");
+		} while (!projectName.trim() || !isNaN(parseFloat(projectName)));
+		appData.title = projectName;
+
+		for (let i = 0; i < 2; i++) {
+			let price = 0;
+			let name = "";
+
+			let screenType = "";
+			do {
+				screenType = prompt("Какие типы экранов нужно разработать?", "Пример : Простые, Сложные, Интерактивные");
+			} while (!screenType.trim() || !isNaN(parseFloat(projectName)));
+			name = screenType;
+
+			do {
+				price = +prompt("Сколько будет стоить данная работа?", "пример: 12000");
+			} while (!appData.isNumber(price) || isNaN(parseFloat(price)));
+			appData.screens.push({ id: i, name: name, price: price });
+		}
+
+		for (let i = 0; i < 2; i++) {
+			let price = 0;
+			let serviceName = "";
+			let serviceType = "";
+			do {
+				serviceType = prompt("Какой дополнительный тип услуги нужен?", "");
+			} while (!serviceType.trim() || !isNaN(parseFloat(serviceType)));
+			serviceName = serviceType;
+
+			do {
+				price = +prompt("Сколько это будет стоить?", "пример: 12000");
+			} while (!appData.isNumber(price) || isNaN(parseFloat(price)));
+			appData.additionalServices[serviceName] = +price;
+		}
+
 		appData.adaptive = confirm("Нужен ли адаптив на сайте?");
 	},
 
-	/* общая цена  доп услуги */
-	getAllServicePrices: function () {
-		let sum = 0;
-		let price = 0;
-		for (let i = 0; i < 2; i++) {
-			if (i === 0) {
-				appData.additionalServices = prompt("Какой дополнительный тип услуги нужен?");
-			} else if (i === 1) {
-				appData.additionalServices02 = prompt("Какой дополнительный тип услуги нужен?");
-			}
-			do {
-				price = +prompt("Сколько это будет стоить?", "пример: 12000");
-			} while (!appData.isNumber(price));
-			sum += price;
+	addPrices: function () {
+		for (let screen of appData.screens) {
+			appData.screenPrice += +screen.price;
 		}
-		appData.allServicePrices = sum;
+		/* общая цена  доп услуги */
+		for (let key in appData.additionalServices) {
+			appData.allServicePrices += appData.additionalServices[key];
+		}
 	},
 
 	/* общий тотал (цена работы + доп услуги)  */
@@ -79,7 +103,8 @@ const appData = {
 	},
 	start: function () {
 		appData.asking(); /* вызов метода с вопросами */
-		appData.getAllServicePrices(); /* вызов метода (сложение доп услуг ) */
+		appData.addPrices();
+
 		appData.getFullPrice(); /* цена за работу + доп услуги */
 		appData.getTitle(); /* форматирование названия проекта */
 		appData.getServicePercentPrices(); /* фулл прайс - откат */
