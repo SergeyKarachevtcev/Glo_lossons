@@ -9,7 +9,7 @@ const appData = {
 	rollback: 75,
 	adaptive: true,
 	additionalServices: "",
-	additionalServices02: "true",
+	additionalServices02: "",
 	fullPrice: 0,
 	servicePercentPrice: 0,
 	allServicePrices: 0,
