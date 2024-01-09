@@ -13,28 +13,27 @@ const appData = {
 	servicePercentPrice: 0,
 	allServicePrices: 0,
 
+	/* проверка на строку */
+	isString: function (value) {
+		return typeof value === "string";
+	},
 	/* метод проверки занчения  */
 	isNumber: function (num) {
 		return !isNaN(parseFloat(num)) && isFinite(num);
 	},
 	/* метод со всеми вопросами */
 	asking: function () {
-		/* проверка на строку */
-		let projectName = "";
 		do {
-			projectName = prompt("Как называется ваш проект?", "");
-		} while (!projectName.trim() || !isNaN(parseFloat(projectName)));
-		appData.title = projectName;
+			appData.title = prompt("Как называется ваш проект?", "");
+		} while (!appData.isString(appData.title) || !isNaN(parseFloat(appData.title)));
 
 		for (let i = 0; i < 2; i++) {
 			let price = 0;
 			let name = "";
 
-			let screenType = "";
 			do {
-				screenType = prompt("Какие типы экранов нужно разработать?", "Пример : Простые, Сложные, Интерактивные");
-			} while (!screenType.trim() || !isNaN(parseFloat(projectName)));
-			name = screenType;
+				name = prompt("Какие типы экранов нужно разработать?", "Пример : Простые, Сложные, Интерактивные");
+			} while (!appData.isString(name) || !isNaN(parseFloat(name)));
 
 			do {
 				price = +prompt("Сколько будет стоить данная работа?", "пример: 12000");
@@ -44,17 +43,16 @@ const appData = {
 
 		for (let i = 0; i < 2; i++) {
 			let price = 0;
-			let serviceName = "";
-			let serviceType = "";
+			let name = "";
+
 			do {
-				serviceType = prompt("Какой дополнительный тип услуги нужен?", "");
-			} while (!serviceType.trim() || !isNaN(parseFloat(serviceType)));
-			serviceName = serviceType;
+				name = prompt("Какой дополнительный тип услуги нужен?", "");
+			} while (!appData.isString(name) || !isNaN(parseFloat(name)));
 
 			do {
 				price = +prompt("Сколько это будет стоить?", "пример: 12000");
-			} while (!appData.isNumber(price) || isNaN(parseFloat(price)));
-			appData.additionalServices[serviceName] = +price;
+			} while (!appData.isNumber(price));
+			appData.additionalServices[name] = +price;
 		}
 
 		appData.adaptive = confirm("Нужен ли адаптив на сайте?");
