@@ -1,39 +1,31 @@
-'use strict'
+const titleElement = document.getElementsByTagName("h1")[0];
+console.log(titleElement);
 
-const title = prompt("Как называется ваш проект?", "");
-const screens = prompt("Какие типы экранов нужно разработать?", "Пример : Простые, Сложные, Интерактивные");
-const screenPrice = +prompt("Сколько будет стоить данная работа?", "пример: 12000");
-const rollback = 75;
+const handlerBtn = document.getElementsByClassName("handler_btn");
+console.log(handlerBtn[0]);
+console.log(handlerBtn[1]);
 
-let adaptive = confirm("Нужен ли адаптив на сайте?");
+const screenBtn = document.querySelector(".screen-btn");
+console.log(screenBtn);
 
-const additionalServices = prompt("Какой дополнительный тип услуги нужен?");
-const additionalServicesPrice = +prompt("Сколько это будет стоить?", "пример: 12000");
-const additionalServices02 = prompt("Какой дополнительный тип услуги нужен?");
-const additionalServicesPrice02 = +prompt("Сколько это будет стоить?", "пример: 12000");
+const otherItemsNum = document.querySelectorAll(".other-items.number");
+console.log(otherItemsNum);
 
-const fullPrice = screenPrice + additionalServicesPrice + additionalServicesPrice02;
+const otherItemsProcent = document.querySelectorAll(".other-items.percent");
+console.log(otherItemsProcent);
 
-const servicePercentPrice = Math.ceil(fullPrice - rollback);
-console.log(servicePercentPrice);
-console.log(typeof title);
-console.log(typeof fullPrice);
-console.log(typeof adaptive);
-console.log(screens.length);
-console.log("Стоимость верстки экранов " + screenPrice + " рублей." + " Стоимость разработки сайта " + fullPrice + " рублей.");
+const rangeInput = document.querySelector('.rollback input[type="range"]');
+console.log(rangeInput);
 
-console.log(screens.toLowerCase().split(", "));
+const rangeValue = document.querySelector(".rollback .range-value");
+console.log(rangeValue);
 
-console.log(fullPrice * (rollback / 100));
-
-if ((fullPrice) => 0 && fullPrice <= 15000) {
-	console.log("Скидка не предусмотрена");
+const totalInput = document.getElementsByClassName("total-input");
+const totalInputElements = [];
+for (let i = 0; i < totalInput.length; i++) {
+	totalInputElements.push(totalInput[i]);
 }
-if (fullPrice > 15000 && fullPrice <= 30000) {
-	console.log("Даем скидку в 5%");
-}
-if (fullPrice < 0) {
-	console.log("Что то пошло не так");
-} else {
-	console.log("Даем скидку в 10%");
-}
+console.log(totalInputElements);
+
+let screen = document.querySelectorAll(".screen");
+console.log(screen);
