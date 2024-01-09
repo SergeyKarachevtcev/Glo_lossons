@@ -15,7 +15,7 @@ const appData = {
 
 	/* проверка на строку */
 	isString: function (value) {
-		return typeof value === "string";
+		return !appData.isNumber(value) && typeof value === "string";
 	},
 	/* метод проверки занчения  */
 	isNumber: function (num) {
@@ -25,7 +25,7 @@ const appData = {
 	asking: function () {
 		do {
 			appData.title = prompt("Как называется ваш проект?", "");
-		} while (!appData.isString(appData.title) || !isNaN(parseFloat(appData.title)));
+		} while (!appData.isString(appData.title));
 
 		for (let i = 0; i < 2; i++) {
 			let price = 0;
@@ -33,12 +33,12 @@ const appData = {
 
 			do {
 				name = prompt("Какие типы экранов нужно разработать?", "Пример : Простые, Сложные, Интерактивные");
-			} while (!appData.isString(name) || !isNaN(parseFloat(name)));
+			} while (!appData.isString(name));
 
 			do {
-				price = +prompt("Сколько будет стоить данная работа?", "пример: 12000");
-			} while (!appData.isNumber(price) || isNaN(parseFloat(price)));
-			appData.screens.push({ id: i, name: name, price: price });
+				price = prompt("Сколько будет стоить данная работа?", "пример: 12000");
+			} while (!appData.isNumber(price));
+			appData.screens.push({ id: i, name: name, price: +price });
 		}
 
 		for (let i = 0; i < 2; i++) {
@@ -50,7 +50,7 @@ const appData = {
 			} while (!appData.isString(name) || !isNaN(parseFloat(name)));
 
 			do {
-				price = +prompt("Сколько это будет стоить?", "пример: 12000");
+				price = prompt("Сколько это будет стоить?", "пример: 12000");
 			} while (!appData.isNumber(price));
 			appData.additionalServices[name] = +price;
 		}
