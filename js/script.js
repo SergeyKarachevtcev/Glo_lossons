@@ -19,7 +19,7 @@ const totalCountRollback = totalInput[4];
 
 let screens = document.querySelectorAll(".screen");
 
-/* объект */
+
 
 const appData = {
 	title: "",
