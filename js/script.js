@@ -114,9 +114,9 @@ const appData = {
 				price: +select.value * +input.value,
 			});
 		});
-		appData.count = screens.length;
-		totalCountTotalInput.value = appData.count;
+		appData.count = screens.length; /* Добавить свойство count в которое занести количество экранов из input. */
 		console.log(appData.screens);
+		console.log(appData.count);
 	},
 
 	addScreenBlock: function () {
@@ -141,6 +141,14 @@ const appData = {
 
 		appData.getServicePercentPrices();
 		totalCountRollback.value = appData.servicePercentPrice;
+
+		let totalInputSum = 0; // общая сумма экранов
+		screens.forEach(function (screen) {
+			const input = screen.querySelector("input");
+			totalInputSum += +input.value; // Добавьляю значение каждого входного сигнала к totalInputSum БЛЯДЬ!
+		});
+
+		totalCountTotalInput.value = totalInputSum; // Вывожу общие данные. 3 часа блядь!
 	},
 
 	showResult: function () {
