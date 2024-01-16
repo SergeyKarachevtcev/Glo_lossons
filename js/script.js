@@ -18,8 +18,6 @@ const totalCountRollback = totalInput[4];
 
 let screens = document.querySelectorAll(".screen");
 
-
-
 const appData = {
 	title: "",
 	screens: [],
@@ -37,9 +35,6 @@ const appData = {
 		appData.addScreens();
 		appData.addServices();
 		appData.addPrices();
-
-		appData.getServicePercentPrices();
-
 		/* appData.logger(); */
 		console.log(appData);
 		appData.showResult();
@@ -107,16 +102,13 @@ const appData = {
 			const select = screen.querySelector("select");
 			const input = screen.querySelector("input");
 			const selectName = select.options[select.selectedIndex].textContent;
-
 			appData.screens.push({
 				id: index,
 				name: selectName,
 				price: +select.value * +input.value,
 			});
 		});
-		appData.count = screens.length; /* Добавить свойство count в которое занести количество экранов из input. */
-		console.log(appData.screens);
-		console.log(appData.count);
+
 	},
 
 	addScreenBlock: function () {
@@ -133,33 +125,26 @@ const appData = {
 			appData.servicePricesNumber += appData.servicesNumber[key];
 		}
 
-		for (let key in appData.servicesPercent) {
-			appData.servicePricesPersent += appData.screenPrice * (appData.servicesPercent[key] / 100);
-		}
 
 		appData.fullPrice = appData.screenPrice + appData.servicePricesPersent + appData.servicePricesNumber;
 
-		appData.getServicePercentPrices();
-		totalCountRollback.value = appData.servicePercentPrice;
+		appData.servicePercentPrice = Math.ceil(appData.fullPrice - (appData.fullPrice * appData.rollback) / 100);
 
-		let totalInputSum = 0; // общая сумма экранов
+		let totalInputSum = 0;
 		screens.forEach(function (screen) {
 			const input = screen.querySelector("input");
-			totalInputSum += +input.value; // Добавьляю значение каждого входного сигнала к totalInputSum БЛЯДЬ!
+			totalInputSum += +input.value; 
 		});
-
-		totalCountTotalInput.value = totalInputSum; // Вывожу общие данные. 3 часа блядь!
+		appData.totalInputSum = totalInputSum;
 	},
 
 	showResult: function () {
+		
 		mainTotalCount.value = appData.screenPrice;
 		totalCountOther.value = appData.servicePricesNumber + appData.servicePricesPersent;
 		totalFullCount.value = appData.fullPrice;
-	},
-
-	/* итоговую стоимость за вычетом процента отката */
-	getServicePercentPrices: function () {
-		appData.servicePercentPrice = Math.ceil(appData.fullPrice - appData.rollback);
+		totalCountRollback.value = appData.servicePercentPrice;
+		totalCountTotalInput.value = appData.totalInputSum;
 	},
 
 	logger: function () {
