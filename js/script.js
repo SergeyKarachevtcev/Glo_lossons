@@ -10,7 +10,6 @@ const otherItemsProcent = document.querySelectorAll(".other-items.percent");
 const rangeInput = document.querySelector('.rollback input[type="range"]');
 const rangeValue = document.querySelector(".rollback .range-value");
 const totalInput = document.getElementsByClassName("total-input");
-
 const mainTotalCount = totalInput[0];
 const totalCountTotalInput = totalInput[1];
 const totalCountOther = totalInput[2];
