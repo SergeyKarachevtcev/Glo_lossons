@@ -15,6 +15,7 @@ const totalCountTotalInput = totalInput[1];
 const totalCountOther = totalInput[2];
 const totalFullCount = totalInput[3];
 const totalCountRollback = totalInput[4];
+const startBtn = document.getElementById("start");
 
 let screens = document.querySelectorAll(".screen");
 
@@ -38,6 +39,14 @@ const appData = {
 		/* appData.logger(); */
 		console.log(appData);
 		appData.showResult();
+	},
+
+	/* должен отключить левый блок про нажатии кнопки Старт */
+	disableTextInputs: function () {
+		const textInputs = document.querySelectorAll('input[type="text"]');
+		textInputs.forEach(function (input) {
+			input.disabled = true;
+		});
 	},
 
 	init: function () {
@@ -67,9 +76,13 @@ const appData = {
 					allInputsFilled = false;
 				}
 			});
-
 			printHandlerBtn.disabled = !allInputsFilled;
 		}
+
+		/* запускает функцию по отключению левого блока  */
+		startBtn.addEventListener("click", function () {
+			appData.disableTextInputs();
+		});
 	},
 
 	addTitle: function () {
