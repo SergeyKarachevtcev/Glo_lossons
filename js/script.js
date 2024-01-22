@@ -41,14 +41,6 @@ const appData = {
 		appData.showResult();
 	},
 
-	/* должен отключить левый блок про нажатии кнопки Старт */
-/* 	disableTextInputs: function () {
-		const textInputs = document.querySelectorAll('input[type="text"]');
-		textInputs.forEach(function (input) {
-			input.disabled = true;
-		});
-	}, */
-
 	init: function () {
 		appData.addTitle();
 		printHandlerBtn.addEventListener("click", appData.start);
@@ -80,10 +72,18 @@ const appData = {
 		}
 
 		/* запускает функцию по отключению левого блока  */
-/* 		startBtn.addEventListener("click", function () {
+		/* 		startBtn.addEventListener("click", function () {
 			appData.disableTextInputs();
 		}); */
 	},
+
+	/* должен отключить левый блок про нажатии кнопки Старт */
+	/* 	disableTextInputs: function () {
+		const textInputs = document.querySelectorAll('input[type="text"]');
+		textInputs.forEach(function (input) {
+			input.disabled = true;
+		});
+	}, */
 
 	addTitle: function () {
 		document.title = titleElement.textContent;
