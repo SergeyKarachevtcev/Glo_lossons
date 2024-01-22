@@ -42,11 +42,11 @@ const appData = {
 	},
 
 	/* должен отключить левый блок про нажатии кнопки Старт */
-	disableTextInputs: function () {
+/* 	disableTextInputs: function () {
 		const textInputs = document.querySelectorAll('input[type="text"]');
 		textInputs.forEach(function (input) {
 			input.disabled = true;
-		});
+		}); */
 	},
 
 	init: function () {
@@ -80,9 +80,9 @@ const appData = {
 		}
 
 		/* запускает функцию по отключению левого блока  */
-		startBtn.addEventListener("click", function () {
+/* 		startBtn.addEventListener("click", function () {
 			appData.disableTextInputs();
-		});
+		}); */
 	},
 
 	addTitle: function () {
