@@ -46,8 +46,8 @@ const appData = {
 		const textInputs = document.querySelectorAll('input[type="text"]');
 		textInputs.forEach(function (input) {
 			input.disabled = true;
-		}); */
-	},
+		});
+	}, */
 
 	init: function () {
 		appData.addTitle();
