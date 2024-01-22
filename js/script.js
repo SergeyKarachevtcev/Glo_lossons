@@ -1,6 +1,5 @@
 "use strict";
 
-
 const titleElement = document.getElementsByTagName("h1")[0];
 const handlerBtn = document.getElementsByClassName("handler_btn");
 const printHandlerBtn = handlerBtn[0]; // Access the first button
@@ -32,7 +31,7 @@ const appData = {
 	servicesNumber: {},
 	fullPrice: 0,
 
-	start: function () {
+	start: () => {
 		appData.addScreens();
 		appData.addServices();
 		appData.addPrices();
@@ -41,7 +40,7 @@ const appData = {
 		appData.showResult();
 	},
 
-	init: function () {
+	init: () => {
 		appData.addTitle();
 		printHandlerBtn.addEventListener("click", appData.start);
 		screenPlus.addEventListener("click", appData.addScreenBlock);
@@ -59,7 +58,7 @@ const appData = {
 			rangeValue.textContent = appData.rollback;
 		});
 
-		function validateInputs() {
+		const validateInputs = () => {
 			let allInputsFilled = true;
 			screens.forEach(function (screen) {
 				const select = screen.querySelector("select");
@@ -70,14 +69,14 @@ const appData = {
 			});
 
 			printHandlerBtn.disabled = !allInputsFilled;
-		}
+		};
 	},
 
-	addTitle: function () {
+	addTitle: () => {
 		document.title = titleElement.textContent;
 	},
 
-	addServices: function () {
+	addServices: () => {
 		otherItemsNum.forEach(function (item) {
 			const check = item.querySelector("input[type=checkbox]");
 			const label = item.querySelector("label");
@@ -97,7 +96,7 @@ const appData = {
 		});
 	},
 
-	addScreens: function () {
+	addScreens: () => {
 		screens = document.querySelectorAll(".screen");
 		screens.forEach(function (screen, index) {
 			const select = screen.querySelector("select");
@@ -109,15 +108,14 @@ const appData = {
 				price: +select.value * +input.value,
 			});
 		});
-
 	},
 
-	addScreenBlock: function () {
+	addScreenBlock: () => {
 		const cloneScreen = screens[0].cloneNode(true);
 		screens[screens.length - 1].after(cloneScreen);
 	},
 
-	addPrices: function () {
+	addPrices: () => {
 		for (let screen of appData.screens) {
 			appData.screenPrice += +screen.price;
 		}
@@ -126,7 +124,6 @@ const appData = {
 			appData.servicePricesNumber += appData.servicesNumber[key];
 		}
 
-
 		appData.fullPrice = appData.screenPrice + appData.servicePricesPersent + appData.servicePricesNumber;
 
 		appData.servicePercentPrice = Math.ceil(appData.fullPrice - (appData.fullPrice * appData.rollback) / 100);
@@ -134,13 +131,12 @@ const appData = {
 		let totalInputSum = 0;
 		screens.forEach(function (screen) {
 			const input = screen.querySelector("input");
-			totalInputSum += +input.value; 
+			totalInputSum += +input.value;
 		});
 		appData.totalInputSum = totalInputSum;
 	},
 
-	showResult: function () {
-		
+	showResult: () => {
 		mainTotalCount.value = appData.screenPrice;
 		totalCountOther.value = appData.servicePricesNumber + appData.servicePricesPersent;
 		totalFullCount.value = appData.fullPrice;
@@ -148,7 +144,7 @@ const appData = {
 		totalCountTotalInput.value = appData.totalInputSum;
 	},
 
-	logger: function () {
+	logger: () => {
 		for (let key in appData) {
 			console.log(key + ": " + appData[key]);
 		}
