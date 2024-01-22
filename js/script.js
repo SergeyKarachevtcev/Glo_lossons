@@ -31,7 +31,7 @@ const appData = {
 	servicesNumber: {},
 	fullPrice: 0,
 
-	start: () => {
+	start: function () {
 		appData.addScreens();
 		appData.addServices();
 		appData.addPrices();
@@ -40,7 +40,7 @@ const appData = {
 		appData.showResult();
 	},
 
-	init: () => {
+	init: function () {
 		appData.addTitle();
 		printHandlerBtn.addEventListener("click", appData.start);
 		screenPlus.addEventListener("click", appData.addScreenBlock);
@@ -58,7 +58,7 @@ const appData = {
 			rangeValue.textContent = appData.rollback;
 		});
 
-		const validateInputs = () => {
+		function validateInputs() {
 			let allInputsFilled = true;
 			screens.forEach(function (screen) {
 				const select = screen.querySelector("select");
@@ -69,14 +69,14 @@ const appData = {
 			});
 
 			printHandlerBtn.disabled = !allInputsFilled;
-		};
+		}
 	},
 
-	addTitle: () => {
+	addTitle: function () {
 		document.title = titleElement.textContent;
 	},
 
-	addServices: () => {
+	addServices: function () {
 		otherItemsNum.forEach(function (item) {
 			const check = item.querySelector("input[type=checkbox]");
 			const label = item.querySelector("label");
@@ -96,7 +96,7 @@ const appData = {
 		});
 	},
 
-	addScreens: () => {
+	addScreens: function () {
 		screens = document.querySelectorAll(".screen");
 		screens.forEach(function (screen, index) {
 			const select = screen.querySelector("select");
@@ -110,12 +110,12 @@ const appData = {
 		});
 	},
 
-	addScreenBlock: () => {
+	addScreenBlock: function () {
 		const cloneScreen = screens[0].cloneNode(true);
 		screens[screens.length - 1].after(cloneScreen);
 	},
 
-	addPrices: () => {
+	addPrices: function () {
 		for (let screen of appData.screens) {
 			appData.screenPrice += +screen.price;
 		}
@@ -136,7 +136,7 @@ const appData = {
 		appData.totalInputSum = totalInputSum;
 	},
 
-	showResult: () => {
+	showResult: function () {
 		mainTotalCount.value = appData.screenPrice;
 		totalCountOther.value = appData.servicePricesNumber + appData.servicePricesPersent;
 		totalFullCount.value = appData.fullPrice;
@@ -144,7 +144,7 @@ const appData = {
 		totalCountTotalInput.value = appData.totalInputSum;
 	},
 
-	logger: () => {
+	logger: function () {
 		for (let key in appData) {
 			console.log(key + ": " + appData[key]);
 		}
