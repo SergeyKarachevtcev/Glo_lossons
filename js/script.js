@@ -1,5 +1,6 @@
 "use strict";
 
+
 const titleElement = document.getElementsByTagName("h1")[0];
 const handlerBtn = document.getElementsByClassName("handler_btn");
 const printHandlerBtn = handlerBtn[0]; // Access the first button
