@@ -17,15 +17,9 @@ const totalCountRollback = totalInput[4];
 const startBtn = document.getElementById("start");
 const resetBtn = document.getElementById("reset");
 const range = document.getElementById("range");
-
 let screensInput = document.querySelectorAll(".main-controls input[type=text]");
-console.log(screensInput);
-
-let viewsSelect = document.querySelectorAll('.views-select')
-console.log(viewsSelect);
-
+let viewsSelect = document.querySelectorAll(".views-select");
 const customCheckbox = document.querySelectorAll(".custom-checkbox");
-console.log(customCheckbox);
 
 let screens = document.querySelectorAll(".screen");
 
@@ -52,21 +46,19 @@ const appData = {
 	},
 
 	init: function () {
-
-		
 		/* функция отключения кнопок */
 		function disableCustomCheckboxes() {
 			range.disabled = true;
-
 			/* инпуты и селекты разблокирую */
+			screensInput = document.querySelectorAll(".main-controls input[type=text]");
 			screensInput.forEach(function (screen) {
 				screen.disabled = true;
 			});
+			viewsSelect = document.querySelectorAll(".views-select");
 			viewsSelect.forEach(function (select) {
 				select.disabled = true;
 			});
 			/* инпуты и селекты разблокирую */
-
 			screenPlus.disabled = true;
 			customCheckbox.forEach(function (checkbox) {
 				checkbox.disabled = true;
@@ -76,7 +68,6 @@ const appData = {
 		startBtn.addEventListener("click", function () {
 			disableCustomCheckboxes();
 		});
-
 		/* функция отключения кпоки и создания копки отмены */
 		function handleClickStart() {
 			startBtn.style.display = "none";
@@ -84,27 +75,25 @@ const appData = {
 		}
 		/* старт функции отключения кпоки и создания копки отмены */
 		startBtn.addEventListener("click", handleClickStart);
-
 		/* функция reset */
 		function handleClickReset() {
 			resetBtn.style.display = "none";
 			startBtn.style.display = "block";
 			screenPlus.disabled = false;
 			range.disabled = false;
-
 			/* инпуты и селекты разблокирую */
+			screensInput = document.querySelectorAll(".main-controls input[type=text]");
 			screensInput.forEach(function (screen) {
 				screen.disabled = false;
 			});
+			viewsSelect = document.querySelectorAll(".views-select");
 			viewsSelect.forEach(function (select) {
 				select.disabled = false;
 			});
 			/* инпуты и селекты разблокирую */
-
 			customCheckbox.forEach(function (checkbox) {
 				checkbox.disabled = false;
 			});
-
 			rangeInput.value = 0;
 			rangeValue.textContent = 0;
 			mainTotalCount.value = 0;
@@ -130,7 +119,6 @@ const appData = {
 		startBtn.addEventListener("click", appData.start);
 		screenPlus.addEventListener("click", appData.addScreenBlock);
 		startBtn.disabled = true;
-
 		screens.forEach(function (screen) {
 			const select = screen.querySelector("select");
 			const input = screen.querySelector("input");
