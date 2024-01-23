@@ -2,8 +2,6 @@
 
 const titleElement = document.getElementsByTagName("h1")[0];
 const handlerBtn = document.getElementsByClassName("handler_btn");
-const printHandlerBtn = handlerBtn[0]; // Access the first button
-const cancellHandlerBtn = handlerBtn[1]; // Access the second button
 const screenPlus = document.querySelector(".screen-btn");
 const otherItemsNum = document.querySelectorAll(".other-items.number");
 const otherItemsProcent = document.querySelectorAll(".other-items.percent");
@@ -15,7 +13,19 @@ const totalCountTotalInput = totalInput[1];
 const totalCountOther = totalInput[2];
 const totalFullCount = totalInput[3];
 const totalCountRollback = totalInput[4];
+
 const startBtn = document.getElementById("start");
+const resetBtn = document.getElementById("reset");
+const range = document.getElementById("range");
+
+let screensInput = document.querySelectorAll(".main-controls input[type=text]");
+console.log(screensInput);
+
+let viewsSelect = document.querySelectorAll('.views-select')
+console.log(viewsSelect);
+
+const customCheckbox = document.querySelectorAll(".custom-checkbox");
+console.log(customCheckbox);
 
 let screens = document.querySelectorAll(".screen");
 
@@ -42,10 +52,84 @@ const appData = {
 	},
 
 	init: function () {
+
+		
+		/* функция отключения кнопок */
+		function disableCustomCheckboxes() {
+			range.disabled = true;
+
+			/* инпуты и селекты разблокирую */
+			screensInput.forEach(function (screen) {
+				screen.disabled = true;
+			});
+			viewsSelect.forEach(function (select) {
+				select.disabled = true;
+			});
+			/* инпуты и селекты разблокирую */
+
+			screenPlus.disabled = true;
+			customCheckbox.forEach(function (checkbox) {
+				checkbox.disabled = true;
+			});
+		}
+		/* запуск функции  отключения кнопок*/
+		startBtn.addEventListener("click", function () {
+			disableCustomCheckboxes();
+		});
+
+		/* функция отключения кпоки и создания копки отмены */
+		function handleClickStart() {
+			startBtn.style.display = "none";
+			resetBtn.style.display = "block";
+		}
+		/* старт функции отключения кпоки и создания копки отмены */
+		startBtn.addEventListener("click", handleClickStart);
+
+		/* функция reset */
+		function handleClickReset() {
+			resetBtn.style.display = "none";
+			startBtn.style.display = "block";
+			screenPlus.disabled = false;
+			range.disabled = false;
+
+			/* инпуты и селекты разблокирую */
+			screensInput.forEach(function (screen) {
+				screen.disabled = false;
+			});
+			viewsSelect.forEach(function (select) {
+				select.disabled = false;
+			});
+			/* инпуты и селекты разблокирую */
+
+			customCheckbox.forEach(function (checkbox) {
+				checkbox.disabled = false;
+			});
+
+			rangeInput.value = 0;
+			rangeValue.textContent = 0;
+			mainTotalCount.value = 0;
+			totalCountOther.value = 0;
+			totalFullCount.value = 0;
+			totalCountRollback.value = 0;
+			totalCountTotalInput.value = 0;
+			appData.screenPrice = 0;
+			appData.adaptive = true;
+			appData.rollback = 0;
+			appData.servicePercentPrice = 0;
+			appData.servicePricesNumber = 0;
+			appData.servicePricesPersent = 0;
+			appData.servicesPercent = {};
+			appData.servicesNumber = {};
+			appData.fullPrice = 0;
+			appData.screens = [];
+		}
+		/* запуск функции reset */
+		resetBtn.addEventListener("click", handleClickReset);
+
 		appData.addTitle();
-		printHandlerBtn.addEventListener("click", appData.start);
+		startBtn.addEventListener("click", appData.start);
 		screenPlus.addEventListener("click", appData.addScreenBlock);
-		printHandlerBtn.disabled = true;
+		startBtn.disabled = true;
 
 		screens.forEach(function (screen) {
 			const select = screen.querySelector("select");
@@ -68,22 +152,9 @@ const appData = {
 					allInputsFilled = false;
 				}
 			});
-			printHandlerBtn.disabled = !allInputsFilled;
+			startBtn.disabled = !allInputsFilled;
 		}
-
-		/* запускает функцию по отключению левого блока  */
-		/* 		startBtn.addEventListener("click", function () {
-			appData.disableTextInputs();
-		}); */
 	},
-
-	/* должен отключить левый блок про нажатии кнопки Старт */
-	/* 	disableTextInputs: function () {
-		const textInputs = document.querySelectorAll('input[type="text"]');
-		textInputs.forEach(function (input) {
-			input.disabled = true;
-		});
-	}, */
 
 	addTitle: function () {
 		document.title = titleElement.textContent;
