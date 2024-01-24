@@ -45,76 +45,79 @@ const appData = {
 		appData.showResult();
 	},
 
-	init: function () {
-		/* функция отключения кнопок */
-		function disableCustomCheckboxes() {
-			range.disabled = true;
-			/* инпуты и селекты разблокирую */
-			screensInput = document.querySelectorAll(".main-controls input[type=text]");
-			screensInput.forEach(function (screen) {
-				screen.disabled = true;
-			});
-			viewsSelect = document.querySelectorAll(".views-select");
-			viewsSelect.forEach(function (select) {
-				select.disabled = true;
-			});
-			/* инпуты и селекты разблокирую */
-			screenPlus.disabled = true;
-			customCheckbox.forEach(function (checkbox) {
-				checkbox.disabled = true;
-			});
-		}
-		/* запуск функции  отключения кнопок*/
-		startBtn.addEventListener("click", function () {
-			disableCustomCheckboxes();
+	/* функция отключения кнопок */
+	disableCustomCheckboxes: function () {
+		range.disabled = true;
+		/* инпуты и селекты разблокирую */
+		screensInput = document.querySelectorAll(".main-controls input[type=text]");
+		screensInput.forEach(function (screen) {
+			screen.disabled = true;
 		});
-		/* функция отключения кпоки и создания копки отмены */
-		function handleClickStart() {
-			startBtn.style.display = "none";
-			resetBtn.style.display = "block";
-		}
-		/* старт функции отключения кпоки и создания копки отмены */
-		startBtn.addEventListener("click", handleClickStart);
-		/* функция reset */
-		function handleClickReset() {
-			resetBtn.style.display = "none";
-			startBtn.style.display = "block";
-			screenPlus.disabled = false;
-			range.disabled = false;
-			/* инпуты и селекты разблокирую */
-			screensInput = document.querySelectorAll(".main-controls input[type=text]");
-			screensInput.forEach(function (screen) {
-				screen.disabled = false;
-			});
-			viewsSelect = document.querySelectorAll(".views-select");
-			viewsSelect.forEach(function (select) {
-				select.disabled = false;
-			});
-			/* инпуты и селекты разблокирую */
-			customCheckbox.forEach(function (checkbox) {
-				checkbox.disabled = false;
-			});
-			rangeInput.value = 0;
-			rangeValue.textContent = 0;
-			mainTotalCount.value = 0;
-			totalCountOther.value = 0;
-			totalFullCount.value = 0;
-			totalCountRollback.value = 0;
-			totalCountTotalInput.value = 0;
-			this.screenPrice = 0;
-			this.adaptive = true;
-			this.rollback = 0;
-			this.servicePercentPrice = 0;
-			this.servicePricesNumber = 0;
-			this.servicePricesPersent = 0;
-			this.servicesPercent = {};
-			this.servicesNumber = {};
-			this.fullPrice = 0;
-			this.screens = [];
-		}
-		/* запуск функции reset */
-		resetBtn.addEventListener("click", handleClickReset);
+		viewsSelect = document.querySelectorAll(".views-select");
+		viewsSelect.forEach(function (select) {
+			select.disabled = true;
+		});
+		/* инпуты и селекты разблокирую */
+		screenPlus.disabled = true;
+		customCheckbox.forEach(function (checkbox) {
+			checkbox.disabled = true;
+		});
+	},
 
+	/* функция отключения кпоки и создания копки отмены */
+	handleClickStart: function () {
+		startBtn.style.display = "none";
+		resetBtn.style.display = "block";
+	},
+
+	/* функция reset */
+	handleClickReset: function () {
+		resetBtn.style.display = "none";
+		startBtn.style.display = "block";
+		screenPlus.disabled = false;
+		range.disabled = false;
+		/* инпуты и селекты разблокирую */
+		screensInput = document.querySelectorAll(".main-controls input[type=text]");
+		screensInput.forEach(function (screen) {
+			screen.disabled = false;
+		});
+		viewsSelect = document.querySelectorAll(".views-select");
+		viewsSelect.forEach(function (select) {
+			select.disabled = false;
+		});
+		/* инпуты и селекты разблокирую */
+		customCheckbox.forEach(function (checkbox) {
+			checkbox.disabled = false;
+		});
+		rangeInput.value = 0;
+		rangeValue.textContent = 0;
+		mainTotalCount.value = 0;
+		totalCountOther.value = 0;
+		totalFullCount.value = 0;
+		totalCountRollback.value = 0;
+		totalCountTotalInput.value = 0;
+		this.screenPrice = 0;
+		this.adaptive = true;
+		this.rollback = 0;
+		this.servicePercentPrice = 0;
+		this.servicePricesNumber = 0;
+		this.servicePricesPersent = 0;
+		this.servicesPercent = {};
+		this.servicesNumber = {};
+		this.fullPrice = 0;
+		this.screens = [];
+	},
+
+	startReset: function () {
+		/* запуск функции  отключения кнопок*/
+		startBtn.addEventListener("click", this.disableCustomCheckboxes);
+		/* старт функции отключения кпоки и создания копки отмены */
+		startBtn.addEventListener("click", this.handleClickStart);
+		/* запуск функции reset */
+		resetBtn.addEventListener("click", this.handleClickReset);
+	},
+
+	init: function () {
 		appData.addTitle();
 		startBtn.addEventListener("click", appData.start);
 		screenPlus.addEventListener("click", appData.addScreenBlock);
@@ -224,4 +227,5 @@ const appData = {
 };
 
 /* вызов метода */
+appData.startReset();
 appData.init();
