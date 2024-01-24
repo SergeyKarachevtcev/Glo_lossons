@@ -116,13 +116,15 @@ const appData = {
 		screensInput.forEach(function (screen) {
 			screen.value = 0;
 		});
-
 		// нахожу все элементы screen
 		screens = document.querySelectorAll(".screen");
 		// Удаление всех элементов, кроме первого
-		for (let i = 1; i < screens.length; i++) {
-			screens[i].remove();
+		if (screens.length > 1) {
+			for (let i = 1; i < screens.length; i++) {
+				screens[i].remove();
+			}
 		}
+
 	},
 
 	startReset: function () {
