@@ -19,9 +19,12 @@ const resetBtn = document.getElementById("reset");
 const range = document.getElementById("range");
 let screensInput = document.querySelectorAll(".main-controls input[type=text]");
 let viewsSelect = document.querySelectorAll(".views-select");
+
 const customCheckbox = document.querySelectorAll(".custom-checkbox");
 
 let screens = document.querySelectorAll(".screen");
+
+console.log(screens);
 
 const appData = {
 	title: "",
@@ -105,7 +108,21 @@ const appData = {
 		this.servicesPercent = {};
 		this.servicesNumber = {};
 		this.fullPrice = 0;
-		this.screens = [];
+		// привожу к исходному значению инпут
+		viewsSelect.forEach(function (select) {
+			select.selectedIndex = 0;
+		});
+		// привожу к нулю значение инпута
+		screensInput.forEach(function (screen) {
+			screen.value = 0;
+		});
+
+		// нахожу все элементы screen
+		screens = document.querySelectorAll(".screen");
+		// Удаление всех элементов, кроме первого
+		for (let i = 1; i < screens.length; i++) {
+			screens[i].remove();
+		}
 	},
 
 	startReset: function () {
