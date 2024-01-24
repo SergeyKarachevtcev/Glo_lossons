@@ -39,7 +39,7 @@ const appData = {
 	servicesNumber: {},
 	fullPrice: 0,
 
-	start: () => {
+	start: function () {
 		appData.addScreens();
 		appData.addServices();
 		appData.addPrices();
@@ -47,54 +47,54 @@ const appData = {
 		console.log(appData);
 		appData.showResult();
 	},
-	startReset: () => {
+	startReset: function () {
 		/* запуск функции  отключения кнопок*/
-		startBtn.addEventListener("click", appData.disableCustomCheckboxes);
+		startBtn.addEventListener("click", this.disableCustomCheckboxes);
 		/* старт функции отключения кпоки и создания копки отмены */
-		startBtn.addEventListener("click", appData.handleClickStart);
+		startBtn.addEventListener("click", this.handleClickStart);
 		/* запуск функции reset */
-		resetBtn.addEventListener("click", appData.handleClickReset);
+		resetBtn.addEventListener("click", this.handleClickReset);
 	},
 	/* функция отключения кнопок */
-	disableCustomCheckboxes: () => {
+	disableCustomCheckboxes: function () {
 		range.disabled = true;
 		/* инпуты и селекты блокирую */
 		screensInput = document.querySelectorAll(".main-controls input[type=text]");
-		screensInput.forEach(screen => {
+		screensInput.forEach(function (screen) {
 			screen.disabled = true;
 		});
 		viewsSelect = document.querySelectorAll(".views-select");
-		viewsSelect.forEach(select => {
+		viewsSelect.forEach(function (select) {
 			select.disabled = true;
 		});
 		/* инпуты и селекты блокирую */
 		screenPlus.disabled = true;
-		customCheckbox.forEach(checkbox => {
+		customCheckbox.forEach(function (checkbox) {
 			checkbox.disabled = true;
 		});
 	},
 	/* функция отключения кпоки и создания копки отмены */
-	handleClickStart: () => {
+	handleClickStart: function () {
 		startBtn.style.display = "none";
 		resetBtn.style.display = "block";
 	},
 	/* функция reset */
-	handleClickReset: () => {
+	handleClickReset: function () {
 		resetBtn.style.display = "none";
 		startBtn.style.display = "block";
 		screenPlus.disabled = false;
 		range.disabled = false;
 		/* инпуты и селекты разблокирую */
 		screensInput = document.querySelectorAll(".main-controls input[type=text]");
-		screensInput.forEach(screen => {
+		screensInput.forEach(function (screen) {
 			screen.disabled = false;
 		});
 		viewsSelect = document.querySelectorAll(".views-select");
-		viewsSelect.forEach(select => {
+		viewsSelect.forEach(function (select) {
 			select.disabled = false;
 		});
 		/* инпуты и селекты разблокирую */
-		customCheckbox.forEach(checkbox => {
+		customCheckbox.forEach(function (checkbox) {
 			checkbox.disabled = false;
 			checkbox.checked = false;
 		});
@@ -117,11 +117,11 @@ const appData = {
 		appData.servicesNumber = {};
 		appData.fullPrice = 0;
 		// привожу к исходному значению инпут
-		viewsSelect.forEach(select => {
+		viewsSelect.forEach(function (select) {
 			select.selectedIndex = 0;
 		});
 		// привожу к нулю значение инпута
-		screensInput.forEach(screen => {
+		screensInput.forEach(function (screen) {
 			screen.value = 0;
 		});
 		// нахожу все элементы screen
@@ -134,20 +134,18 @@ const appData = {
 		}
 	},
 
-	
-
-	init:  () => {
+	init: function () {
 		appData.addTitle();
 		startBtn.addEventListener("click", appData.start);
 		screenPlus.addEventListener("click", appData.addScreenBlock);
 		startBtn.disabled = true;
-		screens.forEach( (screen) => {
+		screens.forEach(function (screen) {
 			const select = screen.querySelector("select");
 			const input = screen.querySelector("input");
 			select.addEventListener("change", validateInputs);
 			input.addEventListener("input", validateInputs);
 		});
-		rangeInput.addEventListener("input",  () => {
+		rangeInput.addEventListener("input", function () {
 			appData.rollback = +rangeInput.value;
 			rangeValue.textContent = appData.rollback;
 		});
@@ -164,11 +162,11 @@ const appData = {
 		}
 	},
 
-	addTitle:  () => {
+	addTitle: function () {
 		document.title = titleElement.textContent;
 	},
 
-	addServices:  () => {
+	addServices: function () {
 		otherItemsNum.forEach(function (item) {
 			const check = item.querySelector("input[type=checkbox]");
 			const label = item.querySelector("label");
@@ -178,7 +176,7 @@ const appData = {
 			}
 		});
 
-		otherItemsProcent.forEach( (item) => {
+		otherItemsProcent.forEach(function (item) {
 			const check = item.querySelector("input[type=checkbox]");
 			const label = item.querySelector("label");
 			const input = item.querySelector("input[type=text]");
@@ -188,7 +186,7 @@ const appData = {
 		});
 	},
 
-	addScreens:  () => {
+	addScreens: function () {
 		screens = document.querySelectorAll(".screen");
 		screens.forEach(function (screen, index) {
 			const select = screen.querySelector("select");
@@ -202,12 +200,12 @@ const appData = {
 		});
 	},
 
-	addScreenBlock:  () => {
+	addScreenBlock: function () {
 		const cloneScreen = screens[0].cloneNode(true);
 		screens[screens.length - 1].after(cloneScreen);
 	},
 
-	addPrices:  () => {
+	addPrices: function () {
 		for (let screen of appData.screens) {
 			appData.screenPrice += +screen.price;
 		}
@@ -221,14 +219,14 @@ const appData = {
 		appData.servicePercentPrice = Math.ceil(appData.fullPrice - (appData.fullPrice * appData.rollback) / 100);
 
 		let totalInputSum = 0;
-		screens.forEach( (screen) => {
+		screens.forEach(function (screen) {
 			const input = screen.querySelector("input");
 			totalInputSum += +input.value;
 		});
 		appData.totalInputSum = totalInputSum;
 	},
 
-	showResult:  () => {
+	showResult: function () {
 		mainTotalCount.value = appData.screenPrice;
 		totalCountOther.value = appData.servicePricesNumber + appData.servicePricesPersent;
 		totalFullCount.value = appData.fullPrice;
@@ -236,7 +234,7 @@ const appData = {
 		totalCountTotalInput.value = appData.totalInputSum;
 	},
 
-	logger:  () => {
+	logger: function () {
 		for (let key in appData) {
 			console.log(key + ": " + appData[key]);
 		}
