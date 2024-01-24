@@ -104,15 +104,17 @@ const appData = {
 		totalFullCount.value = 0;
 		totalCountRollback.value = 0;
 		totalCountTotalInput.value = 0;
-		this.screenPrice = 0;
-		this.adaptive = true;
-		this.rollback = 0;
-		this.servicePercentPrice = 0;
-		this.servicePricesNumber = 0;
-		this.servicePricesPersent = 0;
-		this.servicesPercent = {};
-		this.servicesNumber = {};
-		this.fullPrice = 0;
+		appData.title = "";
+		appData.screens = [];
+		appData.screenPrice = 0;
+		appData.adaptive = true;
+		appData.rollback = 0;
+		appData.servicePercentPrice = 0;
+		appData.servicePricesNumber = 0;
+		appData.servicePricesPersent = 0;
+		appData.servicesPercent = {};
+		appData.servicesNumber = {};
+		appData.fullPrice = 0;
 		// привожу к исходному значению инпут
 		viewsSelect.forEach(function (select) {
 			select.selectedIndex = 0;
@@ -142,12 +144,10 @@ const appData = {
 			select.addEventListener("change", validateInputs);
 			input.addEventListener("input", validateInputs);
 		});
-
 		rangeInput.addEventListener("input", function () {
 			appData.rollback = +rangeInput.value;
 			rangeValue.textContent = appData.rollback;
 		});
-
 		function validateInputs() {
 			let allInputsFilled = true;
 			screens.forEach(function (screen) {
