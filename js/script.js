@@ -47,11 +47,18 @@ const appData = {
 		console.log(appData);
 		appData.showResult();
 	},
-
+	startReset: function () {
+		/* запуск функции  отключения кнопок*/
+		startBtn.addEventListener("click", this.disableCustomCheckboxes);
+		/* старт функции отключения кпоки и создания копки отмены */
+		startBtn.addEventListener("click", this.handleClickStart);
+		/* запуск функции reset */
+		resetBtn.addEventListener("click", this.handleClickReset);
+	},
 	/* функция отключения кнопок */
 	disableCustomCheckboxes: function () {
 		range.disabled = true;
-		/* инпуты и селекты разблокирую */
+		/* инпуты и селекты блокирую */
 		screensInput = document.querySelectorAll(".main-controls input[type=text]");
 		screensInput.forEach(function (screen) {
 			screen.disabled = true;
@@ -60,19 +67,17 @@ const appData = {
 		viewsSelect.forEach(function (select) {
 			select.disabled = true;
 		});
-		/* инпуты и селекты разблокирую */
+		/* инпуты и селекты блокирую */
 		screenPlus.disabled = true;
 		customCheckbox.forEach(function (checkbox) {
 			checkbox.disabled = true;
 		});
 	},
-
 	/* функция отключения кпоки и создания копки отмены */
 	handleClickStart: function () {
 		startBtn.style.display = "none";
 		resetBtn.style.display = "block";
 	},
-
 	/* функция reset */
 	handleClickReset: function () {
 		resetBtn.style.display = "none";
@@ -124,16 +129,6 @@ const appData = {
 				screens[i].remove();
 			}
 		}
-
-	},
-
-	startReset: function () {
-		/* запуск функции  отключения кнопок*/
-		startBtn.addEventListener("click", this.disableCustomCheckboxes);
-		/* старт функции отключения кпоки и создания копки отмены */
-		startBtn.addEventListener("click", this.handleClickStart);
-		/* запуск функции reset */
-		resetBtn.addEventListener("click", this.handleClickReset);
 	},
 
 	init: function () {
