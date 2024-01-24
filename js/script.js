@@ -96,6 +96,7 @@ const appData = {
 		/* инпуты и селекты разблокирую */
 		customCheckbox.forEach(checkbox => {
 			checkbox.disabled = false;
+			checkbox.checked = false;
 		});
 		rangeInput.value = 0;
 		rangeValue.textContent = 0;
