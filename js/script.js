@@ -17,8 +17,8 @@ const totalCountRollback = totalInput[4];
 const startBtn = document.getElementById("start");
 const resetBtn = document.getElementById("reset");
 const range = document.getElementById("range");
-let screensInput = document.querySelectorAll(".main-controls input[type=text]");
-let viewsSelect = document.querySelectorAll(".views-select");
+/* let screensInput = document.querySelectorAll(".main-controls input[type=text]");
+let viewsSelect = document.querySelectorAll(".views-select"); */
 
 const customCheckbox = document.querySelectorAll(".custom-checkbox");
 
