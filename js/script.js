@@ -52,12 +52,12 @@ const appData = {
 			}
 		});
 		if (!this.isError) {
-			appData.addScreens();
-			appData.addServices();
-			appData.addPrices();
+			this.addScreens();
+			this.addServices();
+			this.addPrices();
 			/* appData.logger(); */
-			appData.disabledChanges();
-			appData.showResult();
+			this.disabledChanges();
+			this.showResult();
 			/* console.log(this); */
 		}
 	},
@@ -128,14 +128,14 @@ const appData = {
 	},
 
 	init: function () {
-		appData.addTitle();
-		startBtn.addEventListener("click", this.start);
-		screenPlus.addEventListener("click", this.addScreenBlock);
+		this.addTitle();
+		startBtn.addEventListener("click", this.start.bind(this));
+		screenPlus.addEventListener("click", this.addScreenBlock.bind(this));
 		rangeInput.addEventListener("input", () => {
 			this.rollback = +rangeInput.value;
 			rangeValue.textContent = this.rollback;
 		});
-		resetBtn.addEventListener("click", this.reset);
+		resetBtn.addEventListener("click", this.reset.bind(this));
 	},
 
 	addTitle: function () {
