@@ -38,66 +38,75 @@ const appData = {
 	servicesPercent: {},
 	servicesNumber: {},
 	fullPrice: 0,
+	isError: false,
 
 	start: function () {
-		appData.addScreens();
-		appData.addServices();
-		appData.addPrices();
-		/* appData.logger(); */
-		console.log(appData);
-		appData.showResult();
-	},
-	startReset: function () {
-		/* запуск функции  отключения кнопок*/
-		startBtn.addEventListener("click", this.disableCustomCheckboxes);
-		/* старт функции отключения кпоки и создания копки отмены */
-		startBtn.addEventListener("click", this.handleClickStart);
-		/* запуск функции reset */
-		resetBtn.addEventListener("click", this.handleClickReset);
-	},
-	/* функция отключения кнопок */
-	disableCustomCheckboxes: function () {
-		range.disabled = true;
-		/* инпуты и селекты блокирую */
-		screensInput = document.querySelectorAll(".main-controls input[type=text]");
-		screensInput.forEach(function (screen) {
-			screen.disabled = true;
+		screens = document.querySelectorAll(".screen");
+		this.isError = false;
+
+		screens.forEach((screen) => {
+			const select = screen.querySelector("select");
+			const input = screen.querySelector("input");
+			if (select.value === "" || input.value === "") {
+				this.isError = true;
+			}
 		});
-		viewsSelect = document.querySelectorAll(".views-select");
-		viewsSelect.forEach(function (select) {
-			select.disabled = true;
-		});
-		/* инпуты и селекты блокирую */
-		screenPlus.disabled = true;
-		customCheckbox.forEach(function (checkbox) {
-			checkbox.disabled = true;
-		});
+		if (!this.isError) {
+			appData.addScreens();
+			appData.addServices();
+			appData.addPrices();
+			/* appData.logger(); */
+			appData.disabledChanges();
+			console.log(appData);
+			appData.showResult();
+		}
 	},
-	/* функция отключения кпоки и создания копки отмены */
-	handleClickStart: function () {
-		startBtn.style.display = "none";
+
+	/* запуск функции расчетов и блок кнопок инпутов */
+	disabledChanges: function () {
 		resetBtn.style.display = "block";
+		startBtn.style.display = "none";
+		screenPlus.disabled = true;
+		range.disabled = true;
+
+		/* блокирую инпуты и селекторы */
+		screens.forEach((screen) => {
+			const select = screen.querySelector("select");
+			const input = screen.querySelector("input");
+			select.disabled = true;
+			input.disabled = true;
+		});
+		customCheckbox.forEach((checbox) => {
+			checbox.disabled = true;
+		});
 	},
-	/* функция reset */
-	handleClickReset: function () {
+
+	/* ресет , сброс и обнуление инпутов */
+	reset: function () {
 		resetBtn.style.display = "none";
 		startBtn.style.display = "block";
 		screenPlus.disabled = false;
 		range.disabled = false;
-		/* инпуты и селекты разблокирую */
-		screensInput = document.querySelectorAll(".main-controls input[type=text]");
-		screensInput.forEach(function (screen) {
-			screen.disabled = false;
+
+		/* разблокирую инпуты и слекторы */
+		screens.forEach((screen, index) => {
+			if (index > 0) {
+				screen.remove(); // Удаление всех элементов кроме первого
+			} else {
+				const select = screen.querySelector("select");
+				const input = screen.querySelector("input");
+				select.disabled = false;
+				input.disabled = false;
+				input.value = "";
+				select.value = "";
+			}
 		});
-		viewsSelect = document.querySelectorAll(".views-select");
-		viewsSelect.forEach(function (select) {
-			select.disabled = false;
+
+		customCheckbox.forEach((checbox) => {
+			checbox.disabled = false;
+			checbox.checked = false;
 		});
-		/* инпуты и селекты разблокирую */
-		customCheckbox.forEach(function (checkbox) {
-			checkbox.disabled = false;
-			checkbox.checked = false;
-		});
+
 		rangeInput.value = 0;
 		rangeValue.textContent = 0;
 		mainTotalCount.value = 0;
@@ -116,50 +125,26 @@ const appData = {
 		appData.servicesPercent = {};
 		appData.servicesNumber = {};
 		appData.fullPrice = 0;
-		// привожу к исходному значению инпут
-		viewsSelect.forEach(function (select) {
-			select.selectedIndex = 0;
-		});
-		// привожу к нулю значение инпута
-		screensInput.forEach(function (screen) {
-			screen.value = 0;
-		});
-		// нахожу все элементы screen
-		screens = document.querySelectorAll(".screen");
-		// Удаление всех элементов, кроме первого
-		if (screens.length > 1) {
-			for (let i = 1; i < screens.length; i++) {
-				screens[i].remove();
+
+		/* 		screens = document.querySelectorAll((screen) => {
+
+			if (screens.length > 1) {
+				for (let i = 1; i < screens.length; i++) {
+					screens[i].remove();
+				}
 			}
-		}
+		}); */
 	},
 
 	init: function () {
 		appData.addTitle();
 		startBtn.addEventListener("click", appData.start);
 		screenPlus.addEventListener("click", appData.addScreenBlock);
-		startBtn.disabled = true;
-		screens.forEach(function (screen) {
-			const select = screen.querySelector("select");
-			const input = screen.querySelector("input");
-			select.addEventListener("change", validateInputs);
-			input.addEventListener("input", validateInputs);
-		});
 		rangeInput.addEventListener("input", function () {
 			appData.rollback = +rangeInput.value;
 			rangeValue.textContent = appData.rollback;
 		});
-		function validateInputs() {
-			let allInputsFilled = true;
-			screens.forEach(function (screen) {
-				const select = screen.querySelector("select");
-				const input = screen.querySelector("input");
-				if (select.value === "" || input.value === "") {
-					allInputsFilled = false;
-				}
-			});
-			startBtn.disabled = !allInputsFilled;
-		}
+		resetBtn.addEventListener("click", this.reset);
 	},
 
 	addTitle: function () {
@@ -202,6 +187,7 @@ const appData = {
 
 	addScreenBlock: function () {
 		const cloneScreen = screens[0].cloneNode(true);
+		screens = document.querySelectorAll(".screen");
 		screens[screens.length - 1].after(cloneScreen);
 	},
 
@@ -212,6 +198,10 @@ const appData = {
 		/* общая цена  доп услуги */
 		for (let key in appData.servicesNumber) {
 			appData.servicePricesNumber += appData.servicesNumber[key];
+		}
+
+		for (let key in appData.servicesPercent) {
+			appData.servicePricesPersent += appData.screenPrice * (appData.servicesPercent[key] / 100);
 		}
 
 		appData.fullPrice = appData.screenPrice + appData.servicePricesPersent + appData.servicePricesNumber;
@@ -242,5 +232,4 @@ const appData = {
 };
 
 /* вызов метода */
-appData.startReset();
 appData.init();
