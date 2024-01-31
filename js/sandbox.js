@@ -1,31 +1,17 @@
-function DomElement(selector, height, width, bg, fontSize) {
-	this.selector = selector;
-	this.height = height;
-	this.width = width;
-	this.bg = bg;
-	this.fontSize = fontSize;
-
-	this.createElement = function () {
-		let element;
-		if (this.selector.startsWith(".")) {
-			const className = this.selector.slice(1);
-			element = document.createElement("div");
-			element.classList.add(className);
-		} else if (this.selector.startsWith("#")) {
-			element = document.createElement("p");
-			element.id = this.selector.slice(1);
-		}
-		element.style.height = this.height;
-		element.style.width = this.width;
-		element.style.background = this.bg;
-		element.style.fontSize = this.fontSize;
-		element.textContent = "Любой текст";
-		document.body.appendChild(element);
-	};
+'use strict'
+// Определение класса First
+class First {
+	hello() {
+		console.log("Привет я метод родителя!");
+	}
 }
-
-const newElem = new DomElement("#block", "100px", "200px", "blue", "25px");
-
-newElem.createElement();
-
-console.log(newElem);
+// Определение класса Second, наследующего от First
+class Second extends First {
+	hello() {
+		super.hello(); // Вызов метода hello из First
+		console.log("А я наследуемый метод!");
+	}
+}
+// Создание экземпляра класса Second
+const obj = new Second();
+obj.hello(); // Выводит "Привет я метод родителя!" и "А я наследуемый метод!" в консоль
