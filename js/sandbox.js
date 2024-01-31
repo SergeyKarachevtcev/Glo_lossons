@@ -8,7 +8,7 @@ class First {
 // Определение класса Second, наследующего от First
 class Second extends First {
 	hello() {
-		super.hello(); // Вызов метода hello из First (First.prototype.hello.call(this); )
+		super.hello(); // Вызов метода hello из First 
 		console.log("А я наследуемый метод!");
 	}
 }
